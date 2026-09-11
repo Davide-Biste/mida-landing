@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mida — Landing page
 
-## Getting Started
+Sito di presentazione di **Mida**, l'app di finanza personale gratuita per iPhone.
 
-First, run the development server:
+> **Mida — La tua finanza personale, davvero tua.**
+> Multi-portafoglio, trasferimenti, KPI, obiettivi e proiezioni. I tuoi dati restano sul tuo device.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Costruito con [Next.js 16](https://nextjs.org) (App Router), React 19 e Tailwind CSS 4.
+
+---
+
+## 🎯 Cos'è Mida
+
+Mida è un'app di finanza personale **iOS-first** e **offline**: ogni dato (transazioni, portafogli, budget) resta sul dispositivo, protetto da Face ID. Niente account cloud, niente tracciamento. L'app aiuta a tenere sotto controllo entrate, uscite e risparmi con analisi chiare e proiezioni intelligenti.
+
+Questa landing serve a comunicare le funzionalità chiave e a portare al download su App Store.
+
+---
+
+## ✨ Funzionalità principali dell'app
+
+Questi sono i punti di forza da raccontare nelle sezioni del sito.
+
+### 💸 Transazioni intelligenti
+- Entrate e uscite registrate in pochi secondi, con categoria, portafoglio, nota e posizione.
+- **AI Scan**: scansiona lo scontrino e Mida compila importo e dati per te.
+- Collegamento automatico al saldo del portafoglio (o solo registrazione, senza toccare il saldo).
+
+### 👛 Multi-portafoglio & trasferimenti
+- Gestisci più conti e portafogli in un'unica vista, con saldo totale e flusso netto.
+- **Trasferimenti** tra portafogli per spostare fondi tenendo traccia di origine e destinazione.
+- Dettaglio per ogni portafoglio con statistiche dedicate.
+
+### 🔁 Transazioni ricorrenti
+- Automatizza spese ed entrate fisse: abbonamenti, stipendio, affitto.
+- Frequenze giornaliera, settimanale, mensile, annuale.
+- Modalità **automatica** o **con conferma** per gli importi variabili.
+
+### 🎯 Budget con avvisi
+- Budget settimanali, mensili, trimestrali, annuali o su periodo personalizzato.
+- Avvisi intelligenti quando ti avvicini o superi il limite (stati: in linea / attenzione / superato).
+- **Rollover** del residuo e **proiezione** di fine periodo.
+
+### 📊 Analisi e grafici
+- Dashboard con saldo del periodo, entrate/uscite e statistiche rapide vs. periodo precedente.
+- KPI: tasso di risparmio, spesa media giornaliera, spesa top, giorni di riserva.
+- Grafici di andamento, burn rate, categorie di spesa, trend e **Insights** automatici.
+
+### 🔮 Proiezioni
+- Stima il saldo futuro fino a 12, 24 o 36 mesi.
+- Modalità **Conservativa** (solo ricorrenze e budget attivi) o **Storica** (analisi stagionale degli anni precedenti).
+- Indicatore di affidabilità del dato (verde / giallo / rosso).
+
+### 🤝 Spese condivise
+- Hai pagato anche per altri? Dividi la spesa equamente, per quote o per importi.
+- Mida tiene traccia di chi ti deve restituire i soldi e gestisce il saldo del rimborso.
+
+### 🗂️ Categorie & ricerca
+- Categorie con gerarchia padre/figlio, emoji e colori personalizzati.
+- Ricerca avanzata delle transazioni con filtri, e vista mappa per posizione.
+
+### 🔒 Privacy by design
+- Tutti i dati restano **localmente** sul dispositivo (SQLite).
+- Sblocco con **Face ID** / passcode.
+- Multi-valuta e multilingua (Italiano / Inglese).
+
+---
+
+## 🖼️ Screenshot & mockup iPhone
+
+Gli screenshot dell'app vengono inseriti dentro un mockup iPhone con [magic-ui](https://magicui.design/).
+
+Esempio di utilizzo del componente:
+
+```tsx
+import { Iphone } from "@/registry/magicui/iphone"
+
+export function Demo() {
+  return (
+    <div className="w-[434px]">
+      <Iphone />
+    </div>
+  )
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Per mostrare uno screenshot dentro il telaio, passa l'immagine tramite la prop `src`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+<div className="w-[434px]">
+  <Iphone src="/screenshots/home.png" />
+</div>
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> 📸 **Gli screenshot vengono aggiunti a mano** in `public/screenshots/`. Usa immagini in formato verticale (proporzioni iPhone) per riempire correttamente il mockup.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Sviluppo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+bun install      # installa le dipendenze
+bun dev          # avvia il dev server su http://localhost:3000
+bun run build    # build di produzione
+bun start        # avvia la build di produzione
+bun run lint     # ESLint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> ⚠️ Questo progetto usa **Next.js 16**, che introduce breaking change rispetto alle versioni precedenti. Consulta `node_modules/next/dist/docs/` prima di modificare la struttura o le API.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Struttura
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+├─ layout.tsx        # Metadata SEO + font (Inter, Geist Mono), lang="it"
+├─ page.tsx          # Landing principale
+├─ globals.css       # Stili globali (Tailwind 4)
+├─ Reveal.tsx        # Componente di animazione on-scroll
+├─ privacy/          # Informativa privacy
+├─ terms/            # Termini di servizio
+└─ support/          # Pagina di supporto
+public/
+└─ screenshots/      # Screenshot dell'app per i mockup iPhone
+```
+
+---
+
+## 🎨 Brand
+
+- **Nome**: Mida
+- **Colore primario**: `#3A5A40` (verde)
+- **Tono**: pulito, fidato, attento alla privacy
+- **Font**: Inter (UI), Geist Mono (dettagli/numeri)

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Mida tilted coin — crown style 1 -->
+  <g transform="translate(512 500) rotate(-15)" fill="#F5D23E" stroke="#111111"
+     stroke-width="22" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- coin edge / thickness band -->
+    <path d="M -235 -25
+             L -235 33
+             A 235 148 0 0 0 235 33
+             L 235 -25
+             A 235 148 0 0 1 -235 -25 Z"/>
+
+    <!-- edge ridge ticks -->
+    <g stroke-width="14">
+      <path d="M -200 41 L -200 99"/>
+      <path d="M -160 70 L -160 128"/>
+      <path d="M -120 102 L -120 160"/>
+      <path d="M -80 116 L -80 174"/>
+      <path d="M -40 122 L -40 180"/>
+      <path d="M 0 123 L 0 181"/>
+      <path d="M 40 122 L 40 180"/>
+      <path d="M 80 116 L 80 174"/>
+      <path d="M 120 102 L 120 160"/>
+      <path d="M 160 70 L 160 128"/>
+      <path d="M 200 41 L 200 99"/>
+    </g>
+
+    <!-- coin top face -->
+    <ellipse cx="0" cy="-25" rx="235" ry="148"/>
+
+    <!-- crown style 1 -->
+    <g transform="translate(0 -28) scale(0.72) translate(-257 -238)"
+       stroke="#111111" stroke-width="24" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 132 320
+               Q 126 250 150 196
+               Q 184 232 214 258
+               Q 236 196 256 132
+               Q 278 198 300 256
+               Q 332 230 366 196
+               Q 388 252 382 320
+               Q 256 344 132 320 Z"
+            fill="#F4D23C"/>
+      <path d="M 200 300 Q 256 250 312 300 Q 256 322 200 300 Z"
+            fill="#E2BB2E" stroke="none"/>
+    </g>
+  </g>
+</svg>
