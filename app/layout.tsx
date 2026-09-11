@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { dictionaries } from "./i18n/dictionaries";
 import { getLocale } from "./i18n/getLocale";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
+// Body + display type use the platform system stack (SF Pro on Apple devices —
+// the same face the Mida app itself uses), so the site reads as a natural
+// extension of the product for its iPhone audience. Only the numeric / mono
+// touches use a downloaded face.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -28,7 +26,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   return (
-    <html lang={locale} className={`${inter.variable} ${geistMono.variable}`}>
+    <html lang={locale} className={geistMono.variable}>
       <body>{children}</body>
     </html>
   );
