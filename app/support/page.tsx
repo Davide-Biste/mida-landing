@@ -21,8 +21,8 @@ export default function SupportPage() {
         </p>
 
         <h2>Contatto</h2>
-        <a href="mailto:dave.mazzeo77@gmail.com" className="legal-contact">
-          dave.mazzeo77@gmail.com
+        <a href="mailto:mazzeodavidevittorio@gmail.com" className="legal-contact">
+          mazzeodavidevittorio@gmail.com
         </a>
         <p>Riceverai una risposta appena possibile.</p>
 
