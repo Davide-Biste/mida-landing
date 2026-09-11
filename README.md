@@ -132,4 +132,35 @@ public/
 - **Nome**: Mida
 - **Colore primario**: `#3A5A40` (verde)
 - **Tono**: pulito, fidato, attento alla privacy
-- **Font**: Inter (UI), Geist Mono (dettagli/numeri)
+- **Font**: stack di sistema (SF Pro su device Apple), Geist Mono per i numeri
+
+---
+
+## 🚀 Deploy (GitHub Pages)
+
+Il sito è un **export statico** di Next.js (`output: "export"`) pubblicato su GitHub Pages
+tramite GitHub Actions ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+
+1. Repo → **Settings → Pages → Source: GitHub Actions**.
+2. Ogni push su `main` builda e pubblica in automatico.
+
+Il sito è servito sotto `/<repo>`, quindi il workflow imposta `NEXT_PUBLIC_BASE_PATH=/mida-landing`.
+Se rinomini la repo, aggiorna quel valore nel workflow; per un sito utente (`<user>.github.io`)
+o un dominio personalizzato, lascialo vuoto. In locale `bun run dev` gira normalmente alla root.
+
+Build statica in locale:
+
+```bash
+bun run build     # genera ./out
+```
+
+---
+
+## 📄 Licenza
+
+© 2026 Davide Mazzeo. **Tutti i diritti riservati.** — vedi [`LICENSE`](LICENSE).
+
+La repo è pubblica solo per consentire la pubblicazione via GitHub Pages e la consultazione.
+Il codice sorgente, il design, i testi, gli screenshot, il logo e il nome **Mida** sono di
+proprietà esclusiva dell'autore e **non** possono essere usati, copiati, modificati o
+ridistribuiti senza permesso scritto.

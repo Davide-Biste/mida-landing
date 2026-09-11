@@ -1,13 +1,15 @@
-import { Fragment } from "react";
+"use client";
+
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Reveal from "./Reveal";
 import Coins from "./Coins";
 import Showcase, { type Step } from "./Showcase";
 import Stats from "./Stats";
 import ColorCarousel, { type ColorTile } from "./ColorCarousel";
-import { Icon, Phone, type IconName } from "./ui";
-import { dictionaries, type Dictionary } from "./i18n/dictionaries";
-import { getLocale } from "./i18n/getLocale";
+import { Icon, Phone, asset, type IconName } from "./ui";
+import { dictionaries, defaultLocale, locales, type Dictionary, type Locale } from "./i18n/dictionaries";
 
 const lines = (items: string[]) =>
   items.map((line, i) => (
@@ -34,8 +36,21 @@ const privacyPills: { icon: IconName; size: number; stroke: number }[] = [
   { icon: "check", size: 15, stroke: 2.4 },
 ];
 
-export default async function Home() {
-  const t = dictionaries[await getLocale()];
+export default function Home() {
+  // Static export can't detect language on the server, so do it on the client:
+  // a saved choice wins, otherwise the browser language (falls back to default).
+  const [locale, setLocale] = useState<Locale>(defaultLocale);
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("mida-locale");
+      if (stored && (locales as readonly string[]).includes(stored)) { setLocale(stored as Locale); return; }
+      const nav = navigator.language?.slice(0, 2).toLowerCase();
+      if (nav && (locales as readonly string[]).includes(nav)) setLocale(nav as Locale);
+    } catch { /* storage/navigator unavailable — keep default */ }
+  }, []);
+  useEffect(() => { document.documentElement.lang = locale; }, [locale]);
+
+  const t = dictionaries[locale];
 
   const steps: Step[] = [
     { src: "/screens/wallets.png", alt: t.alts.walletsHero, title: t.multi.title.join(" "), body: t.multi.body },
@@ -61,14 +76,14 @@ export default async function Home() {
         <div className="nav-inner">
           <a className="logo" href="#top">
             <span className="logo-mark">
-              <Image src="/assets/mida.svg" alt="" width={24} height={24} priority />
+              <Image src={asset("/assets/mida.svg")} alt="" width={24} height={24} priority />
             </span>
             Mida
           </a>
           <div className="nav-links">
             <a href="#features">{t.nav.features}</a>
             <a href="#privacy">{t.nav.privacy}</a>
-            <a href="/support">{t.nav.support}</a>
+            <Link href="/support">{t.nav.support}</Link>
             <a href="#download" className="nav-cta">{t.nav.download}</a>
           </div>
         </div>
@@ -150,7 +165,7 @@ export default async function Home() {
               ))}
             </Reveal>
             <Reveal variant="up" delay={260}>
-              <a href="/privacy" className="text-link">{t.privacy.link}</a>
+              <Link href="/privacy" className="text-link">{t.privacy.link}</Link>
             </Reveal>
           </div>
         </div>
@@ -161,7 +176,7 @@ export default async function Home() {
         <div className="container">
           <Reveal variant="scale" className="download-inner">
             <div className="download-icon">
-              <Image src="/assets/icon.png" alt="" width={128} height={128} />
+              <Image src={asset("/assets/icon.png")} alt="" width={128} height={128} />
             </div>
             <div className="price-strike">{t.free.price}</div>
             <h2 className="display h-large">{t.free.title}</h2>
@@ -178,13 +193,13 @@ export default async function Home() {
       <footer>
         <div className="container footer-grid">
           <div className="footer-brand">
-            <Image src="/assets/mida.svg" alt="" width={20} height={20} />
+            <Image src={asset("/assets/mida.svg")} alt="" width={20} height={20} />
             {t.footer.brand}
           </div>
           <div className="footer-links">
-            <a href="/privacy">{t.footer.links.privacy}</a>
-            <a href="/terms">{t.footer.links.terms}</a>
-            <a href="/support">{t.footer.links.support}</a>
+            <Link href="/privacy">{t.footer.links.privacy}</Link>
+            <Link href="/terms">{t.footer.links.terms}</Link>
+            <Link href="/support">{t.footer.links.support}</Link>
             <a href="#">{t.footer.links.store}</a>
           </div>
         </div>

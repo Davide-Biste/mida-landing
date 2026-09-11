@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
+import { asset } from "./ui";
 
 // Decorative Mida coins scattered down the page, sitting behind all content
 // so they peek through between the sections. Generated on the client (in an
@@ -70,7 +71,7 @@ export default function Coins() {
             } as CSSProperties
           }
         >
-          <Image src="/assets/mida.svg" alt="" width={c.size} height={c.size} />
+          <Image src={asset("/assets/mida.svg")} alt="" width={c.size} height={c.size} />
         </span>
       ))}
     </div>

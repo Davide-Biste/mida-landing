@@ -43,8 +43,14 @@ export const Icon = ({ name, size = 22, stroke = 1.6 }: { name: IconName; size?:
   }
 };
 
+// Prefix a public asset path with the deploy base path (empty locally, e.g.
+// "/mida-landing" on GitHub Pages). Needed because neither the raw SVG <image
+// href> in the iPhone mockup nor next/image (in static export) apply basePath
+// on their own.
+export const asset = (p: string) => (process.env.NEXT_PUBLIC_BASE_PATH || "") + p;
+
 export const Phone = ({ lg = false, src, alt = "", className = "" }: { lg?: boolean; src?: string; alt?: string; className?: string }) => (
   <div className={"phone-mock" + (lg ? " lg" : "") + (className ? " " + className : "")}>
-    <Iphone src={src} className="iphone-svg" role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true} />
+    <Iphone src={src ? asset(src) : src} className="iphone-svg" role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true} />
   </div>
 );
