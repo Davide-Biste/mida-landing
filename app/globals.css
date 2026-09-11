@@ -224,6 +224,15 @@ nav.top {
   font-weight: 500; font-size: 14px;
 }
 .nav-links .nav-cta:hover { color: var(--on-brand); opacity: 0.92; }
+.lang-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); }
+.lang-opt {
+  border: 0; background: transparent; color: var(--muted);
+  font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.03em;
+  padding: 4px 10px; border-radius: var(--r-pill); cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.lang-opt:hover { color: var(--ink); }
+.lang-opt.on { background: var(--brand); color: var(--on-brand); }
 @media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
 
 /* ── Hero (centred, one big product) ────────────────────────── */

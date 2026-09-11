@@ -84,6 +84,22 @@ export default function Home() {
             <a href="#features">{t.nav.features}</a>
             <a href="#privacy">{t.nav.privacy}</a>
             <Link href="/support">{t.nav.support}</Link>
+            <div className="lang-switch" role="group" aria-label="Lingua / Language">
+              {locales.map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  className={"lang-opt" + (l === locale ? " on" : "")}
+                  aria-pressed={l === locale}
+                  onClick={() => {
+                    setLocale(l);
+                    try { localStorage.setItem("mida-locale", l); } catch { /* ignore */ }
+                  }}
+                >
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
             <a href="#download" className="nav-cta">{t.nav.download}</a>
           </div>
         </div>
