@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import Tilt from "./Tilt";
+import BlurText from "./BlurText";
 import { Phone } from "./ui";
 
 export type Step = { src: string; alt: string; title: string; body: string };
@@ -12,9 +13,7 @@ export default function Showcase({ steps, heading }: { steps: Step[]; heading: s
     <>
       <section className="sc-lead section-pad" id="features">
         <div className="container">
-          <Reveal variant="up">
-            <h2 className="display h-large">{heading}</h2>
-          </Reveal>
+          <h2 className="display h-large"><BlurText text={heading} trigger="view" /></h2>
         </div>
       </section>
       <div className="showcase">

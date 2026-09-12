@@ -27,6 +27,11 @@ const it = {
     lede: "Più portafogli, trasferimenti, statistiche e obiettivi in un'unica app per iPhone. E i tuoi dati non lasciano mai il telefono.",
     ctaPrimary: "Presto disponibile",
     ctaSecondary: "Scopri come funziona",
+    chips: [
+      { top: "Entrate", value: "€ 1.855", tone: "pos" },
+      { top: "Obiettivo casa", value: "64%", tone: "neutral" },
+      { top: "Budget mensile", value: "78%", tone: "neutral" },
+    ],
   },
   overview: {
     title: ["I tuoi risparmi.", "Sotto controllo."],
@@ -122,7 +127,6 @@ const it = {
       "Nessun account",
       "Funziona offline",
       "Dati sul dispositivo",
-      "Backup iCloud opzionale", //Todo: da implementare
     ],
     link: "Leggi l'informativa completa",
   },
@@ -177,6 +181,11 @@ const en: typeof it = {
     lede: "Multiple wallets, transfers, stats and goals in a single iPhone app. And your data never leaves your phone.",
     ctaPrimary: "Coming soon",
     ctaSecondary: "See how it works",
+    chips: [
+      { top: "Income", value: "€1,855", tone: "pos" },
+      { top: "House goal", value: "64%", tone: "neutral" },
+      { top: "Monthly budget", value: "78%", tone: "neutral" },
+    ],
   },
   overview: {
     title: ["Your money.", "Under control."],
@@ -272,7 +281,6 @@ const en: typeof it = {
       "No account",
       "Works offline",
       "On-device data",
-      "Optional iCloud backup",
     ],
     link: "Read the full privacy policy",
   },

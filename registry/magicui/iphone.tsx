@@ -108,9 +108,9 @@ export function Iphone({
         />
       ) : null}
 
-      {/* Dynamic island */}
-      <rect x="156" y="34" width="121" height="34" rx="17" fill="#000000" />
-      <circle cx="262" cy="51" r="6" fill="#0B0B0F" />
+      {/* No Dynamic Island here — the app screenshots already include their own
+          (status bar + island baked into the PNG). Drawing a second one over the
+          top left the two slightly misaligned. */}
 
       <defs>
         <clipPath id="iphone-screen-clip">

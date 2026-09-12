@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
@@ -10,16 +10,9 @@ import Stats from "./Stats";
 import ColorCarousel, { type ColorTile } from "./ColorCarousel";
 import BlurText from "./BlurText";
 import SpotlightCard from "./SpotlightCard";
+import HeroSpotlight from "./HeroSpotlight";
 import { Icon, Phone, ShinyText, asset, type IconName } from "./ui";
 import { dictionaries, defaultLocale, locales, type Dictionary, type Locale } from "./i18n/dictionaries";
-
-const lines = (items: string[]) =>
-  items.map((line, i) => (
-    <Fragment key={i}>
-      {i > 0 && <br />}
-      {line}
-    </Fragment>
-  ));
 
 const capIcons: IconName[] = ["scan", "repeat", "trending", "users", "tag", "globe"];
 
@@ -35,7 +28,6 @@ const privacyPills: { icon: IconName; size: number; stroke: number }[] = [
   { icon: "check", size: 15, stroke: 2.4 },
   { icon: "cloud-off", size: 15, stroke: 1.8 },
   { icon: "lock", size: 15, stroke: 1.8 },
-  { icon: "check", size: 15, stroke: 2.4 },
 ];
 
 export default function Home() {
@@ -109,6 +101,8 @@ export default function Home() {
       </nav>
 
       <header className="hero section-pad" id="top">
+        <span className="hero-aurora" aria-hidden="true" />
+        <HeroSpotlight />
         <div className="container">
           <span className="badge hero-anim"><span className="dot" /> <ShinyText>{t.hero.badge}</ShinyText></span>
           <h1 className="display h-massive hero-copy">
@@ -130,6 +124,14 @@ export default function Home() {
           <div className="hero-art hero-anim d4">
             <span className="hero-glow" aria-hidden="true" />
             <Phone lg src="/screens/home.png" alt={t.alts.home} className="hero-phone" />
+            <div className="hero-chips" aria-hidden="true">
+              {t.hero.chips.map((c, i) => (
+                <span className={`hero-chip chip-${i + 1} tone-${c.tone}`} key={i}>
+                  <span className="hero-chip-top">{c.top}</span>
+                  <span className="hero-chip-val">{c.value}</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </header>
@@ -141,9 +143,9 @@ export default function Home() {
       {/* Everything else — capabilities grid */}
       <section className="section-pad">
         <div className="container">
-          <Reveal variant="up" className="sec-head">
-            <h2 className="display h-large">{t.features.title}</h2>
-          </Reveal>
+          <div className="sec-head">
+            <h2 className="display h-large"><BlurText text={t.features.title} trigger="view" /></h2>
+          </div>
           <Reveal variant="up" className="caps" delay={80}>
             {t.features.cards.map((card, i) => (
               <SpotlightCard className="cap stagger" key={i}>
@@ -161,7 +163,7 @@ export default function Home() {
         <div className="container">
           <Reveal variant="up" className="sec-head">
             <div className="eyebrow">{t.palette.eyebrow}</div>
-            <h2 className="display h-large">{t.palette.title}</h2>
+            <h2 className="display h-large"><BlurText text={t.palette.title} trigger="view" /></h2>
             <p className="lede">{t.palette.lede}</p>
           </Reveal>
         </div>
@@ -177,7 +179,7 @@ export default function Home() {
             </Reveal>
             <Reveal variant="up" delay={100}>
               <div className="eyebrow">{t.privacy.eyebrow}</div>
-              <h2 className="display h-large">{lines(t.privacy.title)}</h2>
+              <h2 className="display h-large"><BlurText text={t.privacy.title} trigger="view" /></h2>
               <p className="lede">{t.privacy.body}</p>
             </Reveal>
             <Reveal variant="up" className="privacy-pills" delay={180}>
@@ -197,12 +199,12 @@ export default function Home() {
       {/* Download */}
       <section className="download section-pad band" id="download">
         <div className="container">
-          <Reveal variant="scale" className="download-inner">
+          <Reveal variant="scale" className="download-inner star-border">
             <div className="download-icon">
               <Image src={asset("/assets/icon.png")} alt="" width={128} height={128} />
             </div>
             <div className="price-strike">{t.free.price}</div>
-            <h2 className="display h-large">{t.free.title}</h2>
+            <h2 className="display h-large"><BlurText text={t.free.title} trigger="view" /></h2>
             <p className="lede mute">{t.free.lede}</p>
             <div className="download-ctas">
               <span className="btn btn-soon" aria-disabled="true">
