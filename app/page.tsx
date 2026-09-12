@@ -8,7 +8,9 @@ import Coins from "./Coins";
 import Showcase, { type Step } from "./Showcase";
 import Stats from "./Stats";
 import ColorCarousel, { type ColorTile } from "./ColorCarousel";
-import { Icon, Phone, asset, type IconName } from "./ui";
+import BlurText from "./BlurText";
+import SpotlightCard from "./SpotlightCard";
+import { Icon, Phone, ShinyText, asset, type IconName } from "./ui";
 import { dictionaries, defaultLocale, locales, type Dictionary, type Locale } from "./i18n/dictionaries";
 
 const lines = (items: string[]) =>
@@ -54,6 +56,7 @@ export default function Home() {
 
   const steps: Step[] = [
     { src: "/screens/wallets.png", alt: t.alts.walletsHero, title: t.multi.title.join(" "), body: t.multi.body },
+    { src: "/screens/cards.png", alt: t.alts.cards, title: t.cards.title.join(" "), body: t.cards.body },
     { src: "/screens/transfer.png", alt: t.alts.transfer, title: t.transfer.title.join(" "), body: t.transfer.body },
     { src: "/screens/charts.png", alt: t.alts.charts, title: t.kpi.title.join(" "), body: t.kpi.body },
     { src: "/screens/budgets.png", alt: t.alts.budgetsHero, title: t.budget.title.join(" "), body: t.budget.body },
@@ -107,11 +110,15 @@ export default function Home() {
 
       <header className="hero section-pad" id="top">
         <div className="container">
-          <span className="badge hero-anim"><span className="dot" /> {t.hero.badge}</span>
-          <h1 className="display h-massive hero-copy hero-anim d1">
-            {t.hero.titleTop}
+          <span className="badge hero-anim"><span className="dot" /> <ShinyText>{t.hero.badge}</ShinyText></span>
+          <h1 className="display h-massive hero-copy">
+            <BlurText text={t.hero.titleTop} />
             <br />
-            <span className="accent">{t.hero.titleEm}</span>
+            <BlurText
+              text={t.hero.titleEm}
+              className="accent"
+              delay={t.hero.titleTop.split(" ").length * 90 + 140}
+            />
           </h1>
           <p className="lede hero-anim d2">{t.hero.lede}</p>
           <div className="hero-cta hero-anim d3">
@@ -139,11 +146,11 @@ export default function Home() {
           </Reveal>
           <Reveal variant="up" className="caps" delay={80}>
             {t.features.cards.map((card, i) => (
-              <div className="cap stagger" key={i}>
+              <SpotlightCard className="cap stagger" key={i}>
                 <span className="cap-ico"><Icon name={capIcons[i]} size={24} /></span>
                 <h3>{card.title}</h3>
                 <p>{card.desc}</p>
-              </div>
+              </SpotlightCard>
             ))}
           </Reveal>
         </div>

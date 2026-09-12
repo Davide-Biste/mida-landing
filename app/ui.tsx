@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Iphone } from "@/registry/magicui/iphone";
 
 // Pure, hook-free presentational components shared by server sections and the
@@ -48,6 +49,13 @@ export const Icon = ({ name, size = 22, stroke = 1.6 }: { name: IconName; size?:
 // href> in the iPhone mockup nor next/image (in static export) apply basePath
 // on their own.
 export const asset = (p: string) => (process.env.NEXT_PUBLIC_BASE_PATH || "") + p;
+
+// A slow light sheen sweeping across brand-coloured label text (React Bits
+// "ShinyText", adapted to CSS-only). The glint lives in globals.css; under
+// reduced motion it falls back to a solid brand-ink fill.
+export const ShinyText = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
+  <span className={"shiny-text" + (className ? " " + className : "")}>{children}</span>
+);
 
 export const Phone = ({ lg = false, src, alt = "", className = "" }: { lg?: boolean; src?: string; alt?: string; className?: string }) => (
   <div className={"phone-mock" + (lg ? " lg" : "") + (className ? " " + className : "")}>

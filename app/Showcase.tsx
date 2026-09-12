@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import Tilt from "./Tilt";
 import { Phone } from "./ui";
 
 export type Step = { src: string; alt: string; title: string; body: string };
@@ -25,7 +26,9 @@ export default function Showcase({ steps, heading }: { steps: Step[]; heading: s
                 <p className="lede">{s.body}</p>
               </Reveal>
               <Reveal variant="scale" className="sc-art" delay={90}>
-                <Phone lg src={s.src} alt={s.alt} />
+                <Tilt>
+                  <Phone lg src={s.src} alt={s.alt} />
+                </Tilt>
               </Reveal>
             </div>
           </section>

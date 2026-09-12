@@ -436,6 +436,58 @@ footer { padding: 40px 0; border-top: 1px solid var(--line); font-size: 13px; co
 }
 
 /* ============================================================
+   Motion islands (React Bits-style, vanilla). Each has a JS guard
+   too; the reduced-motion block at the end is the CSS backstop.
+   ============================================================ */
+
+/* BlurText — word-by-word blur-in on the hero heading. */
+.blur-word {
+  display: inline-block;
+  opacity: 0; filter: blur(12px); transform: translateY(0.42em);
+  transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, filter, transform;
+}
+.blur-text.on .blur-word { opacity: 1; filter: blur(0); transform: none; }
+
+/* Tilt — 3D lean toward the cursor (transform written inline by JS). */
+.tilt { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); transform-style: preserve-3d; will-change: transform; }
+
+/* SpotlightCard — cursor-follow glow layered under the card content. */
+.spotlight { position: relative; overflow: hidden; }
+.spotlight::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  pointer-events: none; z-index: 0; opacity: 0;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--brand-bright) 20%, transparent), transparent 62%);
+  transition: opacity 0.35s ease;
+}
+.spotlight:hover::before { opacity: 1; }
+.spotlight > * { position: relative; z-index: 1; }
+
+/* ShinyText — slow light sheen across brand-coloured label text. */
+.shiny-text {
+  background: linear-gradient(120deg,
+    var(--brand-ink) 40%,
+    color-mix(in srgb, var(--brand-bright) 55%, #fff) 50%,
+    var(--brand-ink) 60%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-word { opacity: 1 !important; filter: none !important; transform: none !important; transition: none !important; }
+  .tilt { transition: none !important; }
+  .spotlight::before { display: none; }
+  .shiny-text {
+    animation: none; background: none;
+    color: var(--brand-ink); -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* ============================================================
    Legal / content pages — theme-aware reading surface.
    ============================================================ */
 .legal { padding: 56px 0 96px; min-height: 100vh; }

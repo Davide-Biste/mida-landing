@@ -29,7 +29,7 @@ const it = {
     ctaSecondary: "Scopri come funziona",
   },
   overview: {
-    title: ["I tuoi soldi.", "Sotto controllo."],
+    title: ["I tuoi risparmi.", "Sotto controllo."],
   },
   stats: [
     { value: 100, suffix: "%", label: "Sul tuo dispositivo" },
@@ -39,9 +39,14 @@ const it = {
   ],
   multi: {
     eyebrow: "Più portafogli",
-    title: ["Tutti i tuoi soldi.", "In una sola schermata."],
+    title: ["Tutti i tuoi risparmi.", "In una sola schermata."],
     body: "Conti, contanti, carte: crea tutti i portafogli che vuoi, ognuno indipendente dagli altri. Visualizza il tuo patrimonio complessivo e gli ultimi movimenti senza aprire dieci app diverse!",
     cta: "Scarica per iPhone",
+  },
+  cards: {
+    eyebrow: "Carte di credito",
+    title: ["Le carte di credito.", "Si saldano da sole."],
+    body: "Imposta giorno di chiusura, giorno di addebito e conto collegato: le spese si accumulano come debito e l'estratto viene saldato in automatico alla scadenza. Sai sempre quanto devi e quando ti verrà addebitato.",
   },
   transfer: {
     eyebrow: "Trasferimenti",
@@ -86,7 +91,7 @@ const it = {
       },
       {
         title: "Spese condivise",
-        desc: "Dividi una spesa e tieni il conto di chi deve ancora restituirti i soldi.",
+        desc: "Dividi una spesa e tieni il conto di chi deve ancora restituirti il denaro.",
       },
       {
         title: "Categorie",
@@ -139,6 +144,7 @@ const it = {
   },
   alts: {
     walletsHero: "Schermata dei portafogli di Mida",
+    cards: "Schermata delle carte di credito di Mida",
     home: "Schermata Home di Mida",
     budgetsHero: "Schermata dei budget di Mida",
     transfer: "Schermata dei trasferimenti di Mida",
@@ -186,6 +192,11 @@ const en: typeof it = {
     title: ["All your money.", "On a single screen."],
     body: "Accounts, cash, cards, investments: create as many wallets as you like, each one independent. See your total net worth and latest activity without opening ten different apps.",
     cta: "Download for iPhone",
+  },
+  cards: {
+    eyebrow: "Credit cards",
+    title: ["Credit cards.", "That settle themselves."],
+    body: "Set the closing day, the payment day and the linked account: expenses build up as debt and the statement is paid off automatically on its due date. Always know how much you owe and when it'll be charged.",
   },
   transfer: {
     eyebrow: "Transfers",
@@ -283,6 +294,7 @@ const en: typeof it = {
   },
   alts: {
     walletsHero: "Mida wallets screen",
+    cards: "Mida credit cards screen",
     home: "Mida home screen",
     budgetsHero: "Mida budgets screen",
     transfer: "Mida transfers screen",

@@ -20,7 +20,7 @@ type Coin = {
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
 function makeCoin(top: number, side: "l" | "r"): Coin {
-  const size = Math.round(rand(24, 54));
+  const size = Math.round(rand(46, 96));
   const edge = rand(1, 13);
   return {
     top,
@@ -32,7 +32,7 @@ function makeCoin(top: number, side: "l" | "r"): Coin {
     r0: rand(-12, 12),
     x1: rand(-40, 40), y1: rand(-55, 55), r1: rand(-20, 20),
     x2: rand(-40, 40), y2: rand(-55, 55), r2: rand(-20, 20),
-    hideMobile: size < 34 || Math.random() < 0.45,
+    hideMobile: size > 78 || Math.random() < 0.5,
   };
 }
 
@@ -48,7 +48,7 @@ export default function Coins() {
   const [coins, setCoins] = useState<Coin[]>([]);
 
   useEffect(() => {
-    setCoins(buildField(100));
+    setCoins(buildField(42));
   }, []);
 
   return (
