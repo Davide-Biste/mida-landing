@@ -158,7 +158,7 @@ bun run build     # genera ./out
 
 ## 📄 Licenza
 
-© 2026 Davide Mazzeo. **Tutti i diritti riservati.** — vedi [`LICENSE`](LICENSE).
+© 2026 Davide Vittorio Mazzeo. **Tutti i diritti riservati.** — vedi [`LICENSE`](LICENSE).
 
 La repo è pubblica solo per consentire la pubblicazione via GitHub Pages e la consultazione.
 Il codice sorgente, il design, i testi, gli screenshot, il logo e il nome **Mida** sono di
