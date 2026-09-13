@@ -399,7 +399,7 @@ nav.top {
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
   will-change: transform, opacity;
 }
-.carousel-item .phone-mock { width: clamp(210px, 19vw, 252px); }
+.carousel-item .phone-mock.lg { width: clamp(210px, 19vw, 252px); }
 .carousel-meta { text-align: center; margin-top: clamp(28px, 4vw, 48px); animation: metaFade 0.5s ease; }
 @keyframes metaFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .carousel-meta .swatches { display: flex; gap: 7px; justify-content: center; margin-bottom: 12px; }
@@ -475,7 +475,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--line); font-size: 13px; co
 @media (prefers-color-scheme: dark) {
   .phone-mock { filter: drop-shadow(0 40px 76px rgba(0, 0, 0, 0.6)); }
 }
-@media (max-width: 640px) { .phone-mock { width: 236px; } .phone-mock.lg { width: 264px; } }
+@media (max-width: 640px) { .phone-mock { width: 236px; } .phone-mock.lg { width: 264px; } .carousel-item .phone-mock.lg { width: 210px; } .carousel-stage { height: clamp(440px, 118vw, 470px); } }
 
 /* ── Scroll reveal (Apple: gentle fade-up) ──────────────────── */
 .reveal {
