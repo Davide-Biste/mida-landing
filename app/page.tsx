@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
@@ -11,8 +11,8 @@ import ColorCarousel, { type ColorTile } from "./ColorCarousel";
 import BlurText from "./BlurText";
 import SpotlightCard from "./SpotlightCard";
 import HeroSpotlight from "./HeroSpotlight";
-import { Icon, Phone, ShinyText, asset, type IconName } from "./ui";
-import { dictionaries, defaultLocale, locales, type Dictionary, type Locale } from "./i18n/dictionaries";
+import { Flag, Icon, Phone, ShinyText, asset, type IconName } from "./ui";
+import { dictionaries, defaultLocale, locales, localeNames, type Dictionary, type Locale } from "./i18n/dictionaries";
 
 const capIcons: IconName[] = ["scan", "repeat", "trending", "users", "tag", "globe"];
 
@@ -44,6 +44,37 @@ export default function Home() {
   }, []);
   useEffect(() => { document.documentElement.lang = locale; }, [locale]);
 
+  // Language menu: a flag button that opens a dropdown of the shipped locales.
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!langOpen) return;
+    const onDown = (e: PointerEvent) => {
+      if (!langRef.current?.contains(e.target as Node)) setLangOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLangOpen(false); };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [langOpen]);
+  const chooseLocale = (l: Locale) => {
+    setLocale(l);
+    setLangOpen(false);
+    try { localStorage.setItem("mida-locale", l); } catch { /* ignore */ }
+  };
+
+  // "Back to top" button — appears once the hero is scrolled well out of view.
+  const [showTop, setShowTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 700);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const t = dictionaries[locale];
 
   const steps: Step[] = [
@@ -71,7 +102,7 @@ export default function Home() {
         <div className="nav-inner">
           <a className="logo" href="#top">
             <span className="logo-mark">
-              <Image src={asset("/assets/mida.svg")} alt="" width={24} height={24} priority />
+              <Image src={asset("/assets/icon.png")} alt="" width={24} height={24} priority />
             </span>
             Mida
           </a>
@@ -79,21 +110,39 @@ export default function Home() {
             <a href="#features">{t.nav.features}</a>
             <a href="#privacy">{t.nav.privacy}</a>
             <Link href="/support">{t.nav.support}</Link>
-            <div className="lang-switch" role="group" aria-label="Lingua / Language">
-              {locales.map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  className={"lang-opt" + (l === locale ? " on" : "")}
-                  aria-pressed={l === locale}
-                  onClick={() => {
-                    setLocale(l);
-                    try { localStorage.setItem("mida-locale", l); } catch { /* ignore */ }
-                  }}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
+            <div className="lang-menu" ref={langRef}>
+              <button
+                type="button"
+                className="lang-btn"
+                aria-haspopup="menu"
+                aria-expanded={langOpen}
+                aria-label={localeNames[locale]}
+                onClick={() => setLangOpen((o) => !o)}
+              >
+                <Flag code={locale} />
+                <svg className="lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+              {langOpen && (
+                <ul className="lang-pop" role="menu" aria-label="Lingua / Language / Idioma">
+                  {locales.map((l) => (
+                    <li key={l} role="none">
+                      <button
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={l === locale}
+                        className={"lang-item" + (l === locale ? " on" : "")}
+                        onClick={() => chooseLocale(l)}
+                      >
+                        <Flag code={l} />
+                        <span>{localeNames[l]}</span>
+                        {l === locale && (
+                          <svg className="lang-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                        )}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <a href="#download" className="nav-cta">{t.nav.download}</a>
           </div>
@@ -229,6 +278,16 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <button
+        type="button"
+        className={"to-top" + (showTop ? " show" : "")}
+        aria-label={t.nav.backToTop}
+        title={t.nav.backToTop}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15" /></svg>
+      </button>
     </div>
   );
 }

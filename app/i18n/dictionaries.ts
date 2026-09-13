@@ -1,12 +1,19 @@
 // Translation dictionaries for the landing page.
 // `it` is the source of truth for the shape; `en` must match it (typeof it).
 
-export const locales = ["it", "en"] as const;
+export const locales = ["it", "en", "es"] as const;
 export type Locale = (typeof locales)[number];
 
-// Fallback for browsers whose language is neither Italian nor English.
+// Fallback for browsers whose language isn't one we ship.
 // English is the broader international default — flip to "it" to prefer Italian.
 export const defaultLocale: Locale = "en";
+
+// Native names shown in the language menu, keyed by locale.
+export const localeNames: Record<Locale, string> = {
+  it: "Italiano",
+  en: "English",
+  es: "Español",
+};
 
 const it = {
   metadata: {
@@ -19,6 +26,7 @@ const it = {
     privacy: "Privacy",
     support: "Supporto",
     download: "Beta",
+    backToTop: "Torna su",
   },
   hero: {
     badge: "In arrivo · beta privata",
@@ -45,7 +53,7 @@ const it = {
   multi: {
     eyebrow: "Più portafogli",
     title: ["Tutti i tuoi risparmi.", "In una sola schermata."],
-    body: "Conti, contanti, carte: crea tutti i portafogli che vuoi, ognuno indipendente dagli altri. Visualizza il tuo patrimonio complessivo e gli ultimi movimenti senza aprire dieci app diverse!",
+    body: "Conti, contanti, carte, investimenti: crea tutti i portafogli che vuoi, ognuno indipendente dagli altri. Visualizza il tuo patrimonio complessivo e gli ultimi movimenti senza aprire dieci app diverse.",
     cta: "Scarica per iPhone",
   },
   cards: {
@@ -56,7 +64,7 @@ const it = {
   transfer: {
     eyebrow: "Trasferimenti",
     title: ["Sposta denaro.", "In due tap."],
-    body: "Importo, conto di partenza, conto di arrivo: confermi ed è fatta.",
+    body: "Importo, conto di partenza, conto di arrivo: confermi ed è fatta. Storico completo, animazioni fluide e gli importi che usi più spesso sempre a portata di mano.",
   },
   kpi: {
     eyebrow: "Statistiche",
@@ -66,7 +74,7 @@ const it = {
   budget: {
     eyebrow: "Budget",
     title: ["Tetti di spesa.", "Sempre sotto controllo."],
-    body: "Budget settimanali, mensili o su misura per ogni categoria. Ti avvisa Mida quando ti avvicini al limite, può riportare l'avanzo al periodo successivo e stimare come chiuderai il periodo.",
+    body: "Budget settimanali, mensili o su misura per ogni categoria. Mida ti avvisa quando ti avvicini al limite, riporta l'avanzo al periodo successivo e stima come chiuderai il mese.",
   },
   add: {
     eyebrow: "Aggiungi al volo",
@@ -173,6 +181,7 @@ const en: typeof it = {
     privacy: "Privacy",
     support: "Support",
     download: "Beta",
+    backToTop: "Back to top",
   },
   hero: {
     badge: "Coming soon · private beta",
@@ -316,6 +325,161 @@ const en: typeof it = {
   },
 };
 
+const es: typeof it = {
+  metadata: {
+    title: "Mida — Tus finanzas personales, de verdad tuyas",
+    description:
+      "La app gratuita de finanzas personales para iPhone. Varias carteras, transferencias, estadísticas y objetivos. Y tus datos se quedan en tu dispositivo.",
+  },
+  nav: {
+    features: "Funciones",
+    privacy: "Privacidad",
+    support: "Soporte",
+    download: "Beta",
+    backToTop: "Volver arriba",
+  },
+  hero: {
+    badge: "Próximamente · beta privada",
+    titleTop: "Finanzas personales.",
+    titleEm: "De verdad tuyas.",
+    lede: "Varias carteras, transferencias, estadísticas y objetivos en una sola app para iPhone. Y tus datos nunca salen de tu teléfono.",
+    ctaPrimary: "Próximamente",
+    ctaSecondary: "Descubre cómo funciona",
+    chips: [
+      { top: "Ingresos", value: "€1.855", tone: "pos" },
+      { top: "Objetivo casa", value: "64%", tone: "neutral" },
+      { top: "Presupuesto mensual", value: "78%", tone: "neutral" },
+    ],
+  },
+  overview: {
+    title: ["Tu dinero.", "Bajo control."],
+  },
+  stats: [
+    { value: 100, suffix: "%", label: "En tu dispositivo" },
+    { value: 0, suffix: "", label: "Cuentas necesarias" },
+    { value: 36, suffix: "", label: "Meses de proyecciones" },
+    { value: 4, suffix: "", label: "Paletas de colores" },
+  ],
+  multi: {
+    eyebrow: "Varias carteras",
+    title: ["Todo tu dinero.", "En una sola pantalla."],
+    body: "Cuentas, efectivo, tarjetas, inversiones: crea todas las carteras que quieras, cada una independiente. Consulta tu patrimonio total y los últimos movimientos sin abrir diez apps distintas.",
+    cta: "Descargar para iPhone",
+  },
+  cards: {
+    eyebrow: "Tarjetas de crédito",
+    title: ["Las tarjetas de crédito.", "Se liquidan solas."],
+    body: "Configura el día de cierre, el día de cargo y la cuenta vinculada: los gastos se acumulan como deuda y el extracto se liquida automáticamente en su vencimiento. Siempre sabes cuánto debes y cuándo se te cobrará.",
+  },
+  transfer: {
+    eyebrow: "Transferencias",
+    title: ["Mueve dinero.", "En dos toques."],
+    body: "Importe, origen, destino: confirmas y listo. Historial completo, animaciones fluidas y los importes que más usas siempre a mano.",
+  },
+  kpi: {
+    eyebrow: "Estadísticas",
+    title: ["Los números", "que importan."],
+    body: "Ingresos, gastos, tasa de ahorro, evolución por categoría. Nada de paneles de control complejos: solo los datos que de verdad te ayudan a cambiar de hábitos.",
+  },
+  budget: {
+    eyebrow: "Presupuestos",
+    title: ["Límites de gasto.", "Siempre bajo control."],
+    body: "Presupuestos semanales, mensuales o a medida para cada categoría. Te avisamos cuando te acercas al límite, trasladamos lo que sobra al periodo siguiente y estimamos cómo cerrarás el mes.",
+  },
+  add: {
+    eyebrow: "Añade al vuelo",
+    title: ["Un gasto.", "Dos segundos."],
+    body: "Un teclado cómodo, categorías al alcance del pulgar, gasto o ingreso en un solo toque. O fotografía el ticket con AI Scan: rellena el importe, la fecha y la categoría por ti.",
+  },
+  search: {
+    eyebrow: "Búsqueda y recurrentes",
+    title: ["Encuéntralo todo.", "No recuerdes nada."],
+    body: "Nómina, alquiler y suscripciones se registran solos: de forma automática, o con una confirmación rápida cuando el importe cambia. Y cuando buscas un gasto, lo encuentras al instante, por nombre, categoría o cartera.",
+  },
+  features: {
+    eyebrow: "Y además, todo lo demás",
+    title: "Pensada hasta el detalle.",
+    cards: [
+      {
+        title: "AI Scan",
+        desc: "Fotografía el ticket: importe, fecha y detalles rellenados automáticamente.",
+      },
+      {
+        title: "Recurrentes",
+        desc: "Nómina, alquiler y suscripciones: automáticos, o con confirmación cuando el importe cambia.",
+      },
+      {
+        title: "Proyecciones",
+        desc: "Estima tu saldo hasta 36 meses, con un enfoque prudente o basado en tu historial.",
+      },
+      {
+        title: "Gastos compartidos",
+        desc: "Divide un gasto y lleva la cuenta de quién todavía te debe dinero.",
+      },
+      {
+        title: "Categorías",
+        desc: "Categorías y subcategorías, con emoji y colores, además de una búsqueda avanzada con vista de mapa.",
+      },
+      {
+        title: "Multidivisa",
+        desc: "Elige tu divisa, con interfaz en italiano e inglés. Siempre y solo en el dispositivo.",
+      },
+    ],
+  },
+  palette: {
+    eyebrow: "Aspecto",
+    title: "Vestida a tu gusto.",
+    lede: "Cuatro familias de colores, cada una con cinco tonos, además de tema claro u oscuro. Lo cambias todo con un toque.",
+    tiles: [
+      { name: "Energía", desc: "Coral, cereza, magenta" },
+      { name: "Calma", desc: "Glicina, iris y rosa suaves" },
+      { name: "Naturaleza", desc: "Verdes profundos y salvia" },
+      { name: "Noche", desc: "Azul, índigo y océano" },
+    ],
+  },
+  privacy: {
+    eyebrow: "Privacidad, de verdad",
+    title: ["Tus datos.", "En tu teléfono.", "Punto."],
+    body: "Mida no tiene servidores, no pide cuenta y no rastrea nada. Todo se queda en tu iPhone: cuando eliminas la app, tus datos se van con ella.",
+    pills: [
+      "Sin cuenta",
+      "Funciona sin conexión",
+      "Datos en el dispositivo",
+    ],
+    link: "Lee la política de privacidad completa",
+  },
+  free: {
+    price: "€4,99 / mes",
+    title: "Gratis. Para siempre.",
+    lede: "Sin suscripción, sin versión premium, sin funciones bloqueadas. Mida sigue en beta: la descarga llegará muy pronto.",
+    ctaStore: "Próximamente en la App Store",
+    ctaCoffee: "Invítame a un café",
+  },
+  footer: {
+    brand: "© 2026 Mida · Hecho con ☕ en Italia",
+    links: {
+      privacy: "Privacidad",
+      terms: "Términos",
+      support: "Soporte",
+      store: "App Store",
+    },
+  },
+  alts: {
+    walletsHero: "Pantalla de carteras de Mida",
+    cards: "Pantalla de tarjetas de crédito de Mida",
+    home: "Pantalla de inicio de Mida",
+    budgetsHero: "Pantalla de presupuestos de Mida",
+    transfer: "Pantalla de transferencias de Mida",
+    charts: "Pantalla de estadísticas de Mida",
+    add: "Pantalla para añadir una transacción en Mida",
+    search: "Pantalla de búsqueda y recurrentes de Mida",
+    paletteEnergia: "Mida con la paleta Energía",
+    paletteCalma: "Mida con la paleta Calma",
+    paletteNatura: "Mida con la paleta Naturaleza",
+    paletteNotte: "Mida con la paleta Noche",
+  },
+};
+
 export type Dictionary = typeof it;
 
-export const dictionaries: Record<Locale, Dictionary> = { it, en };
+export const dictionaries: Record<Locale, Dictionary> = { it, en, es };

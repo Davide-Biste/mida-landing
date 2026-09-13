@@ -44,6 +44,39 @@ export const Icon = ({ name, size = 22, stroke = 1.6 }: { name: IconName; size?:
   }
 };
 
+// Small rounded flag glyphs for the language menu. Drawn as inline SVG (rather
+// than emoji flags, which don't render on Windows) and clip-path-free so the
+// same flag can appear more than once without id collisions. "en" → UK flag.
+export const Flag = ({ code, size = 20 }: { code: string; size?: number }) => {
+  const wrap = (children: ReactNode) => (
+    <svg width={size} height={size * 0.7} viewBox="0 0 60 42" className="flag" aria-hidden="true">
+      {children}
+    </svg>
+  );
+  switch (code) {
+    case "it":
+      return wrap(<>
+        <rect width="20" height="42" fill="#009246" />
+        <rect x="20" width="20" height="42" fill="#f1f2f1" />
+        <rect x="40" width="20" height="42" fill="#ce2b37" />
+      </>);
+    case "es":
+      return wrap(<>
+        <rect width="60" height="42" fill="#c60b1e" />
+        <rect y="10.5" width="60" height="21" fill="#ffc400" />
+      </>);
+    case "en":
+    default:
+      return wrap(<>
+        <rect width="60" height="42" fill="#012169" />
+        <path d="M0,0 L60,42 M60,0 L0,42" stroke="#fff" strokeWidth="8" />
+        <path d="M0,0 L60,42 M60,0 L0,42" stroke="#c8102e" strokeWidth="4" />
+        <path d="M30,0 V42 M0,21 H60" stroke="#fff" strokeWidth="14" />
+        <path d="M30,0 V42 M0,21 H60" stroke="#c8102e" strokeWidth="8" />
+      </>);
+  }
+};
+
 // Prefix a public asset path with the deploy base path (empty locally, e.g.
 // "/mida-landing" on GitHub Pages). Needed because neither the raw SVG <image
 // href> in the iPhone mockup nor next/image (in static export) apply basePath
