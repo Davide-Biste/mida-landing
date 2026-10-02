@@ -3,7 +3,7 @@ import Tilt from "./Tilt";
 import BlurText from "./BlurText";
 import { Phone } from "./ui";
 
-export type Step = { src: string; alt: string; title: string; body: string };
+export type Step = { src: string; srcDark?: string; alt: string; eyebrow?: string; title: string; body: string };
 
 // Full-screen scroll-snap panels. Each feature fills the viewport and snaps
 // into place (scroll-snap-stop: always), so the reader has to insist on the
@@ -21,12 +21,13 @@ export default function Showcase({ steps, heading }: { steps: Step[]; heading: s
           <section className="sc-panel" key={s.src}>
             <div className="container sc-panel-inner">
               <Reveal variant="up" className="sc-copy">
+                {s.eyebrow && <div className="eyebrow">{s.eyebrow}</div>}
                 <h3 className="display h-large">{s.title}</h3>
                 <p className="lede">{s.body}</p>
               </Reveal>
               <Reveal variant="scale" className="sc-art" delay={90}>
                 <Tilt>
-                  <Phone lg src={s.src} alt={s.alt} />
+                  <Phone lg src={s.src} srcDark={s.srcDark} alt={s.alt} />
                 </Tilt>
               </Reveal>
             </div>

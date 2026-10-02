@@ -6,7 +6,8 @@ import { Iphone } from "@/registry/magicui/iphone";
 
 export type IconName =
   | "shield" | "lock" | "check" | "apple" | "coffee" | "cloud-off"
-  | "scan" | "repeat" | "trending" | "users" | "tag" | "globe" | "search";
+  | "scan" | "repeat" | "trending" | "users" | "tag" | "globe" | "search"
+  | "card" | "face" | "grid";
 
 export const Icon = ({ name, size = 22, stroke = 1.6 }: { name: IconName; size?: number; stroke?: number }) => {
   const p = {
@@ -39,6 +40,12 @@ export const Icon = ({ name, size = 22, stroke = 1.6 }: { name: IconName; size?:
       return (<svg {...p}><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>);
     case "globe":
       return (<svg {...p}><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>);
+    case "card":
+      return (<svg {...p}><rect x="2" y="5" width="20" height="14" rx="2.5" /><line x1="2" y1="10" x2="22" y2="10" /><line x1="6" y1="15" x2="10" y2="15" /></svg>);
+    case "face":
+      return (<svg {...p}><path d="M3 8V6a3 3 0 0 1 3-3h2" /><path d="M16 3h2a3 3 0 0 1 3 3v2" /><path d="M21 16v2a3 3 0 0 1-3 3h-2" /><path d="M8 21H6a3 3 0 0 1-3-3v-2" /><line x1="9" y1="9" x2="9" y2="10.5" /><line x1="15" y1="9" x2="15" y2="10.5" /><path d="M12 9v4h-1" /><path d="M9 15.5a4.5 4.5 0 0 0 6 0" /></svg>);
+    case "grid":
+      return (<svg {...p}><rect x="3" y="3" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" /></svg>);
     case "search":
       return (<svg {...p}><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>);
   }
@@ -81,6 +88,9 @@ export const Flag = ({ code, size = 20 }: { code: string; size?: number }) => {
 // "/mida-landing" on GitHub Pages). Needed because neither the raw SVG <image
 // href> in the iPhone mockup nor next/image (in static export) apply basePath
 // on their own.
+// Tip jar (Ko-fi). Used by the roadmap donate step, the download CTA and the footer.
+export const DONATE_URL = "https://ko-fi.com/davidevittoriomazzeo";
+
 export const asset = (p: string) => (process.env.NEXT_PUBLIC_BASE_PATH || "") + p;
 
 // A slow light sheen sweeping across brand-coloured label text (React Bits
@@ -90,8 +100,11 @@ export const ShinyText = ({ children, className = "" }: { children: ReactNode; c
   <span className={"shiny-text" + (className ? " " + className : "")}>{children}</span>
 );
 
-export const Phone = ({ lg = false, src, alt = "", className = "" }: { lg?: boolean; src?: string; alt?: string; className?: string }) => (
-  <div className={"phone-mock" + (lg ? " lg" : "") + (className ? " " + className : "")}>
-    <Iphone src={src ? asset(src) : src} className="iphone-svg" role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true} />
+// `srcDark` swaps in the app's dark-theme screenshot when the page itself is
+// dark (both are rendered; CSS shows one per prefers-color-scheme).
+export const Phone = ({ lg = false, src, srcDark, alt = "", className = "" }: { lg?: boolean; src?: string; srcDark?: string; alt?: string; className?: string }) => (
+  <div className={"phone-mock" + (lg ? " lg" : "") + (srcDark ? " has-dark" : "") + (className ? " " + className : "")}>
+    <Iphone src={src ? asset(src) : src} className="iphone-svg shot-light" role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true} />
+    {srcDark && <Iphone src={asset(srcDark)} className="iphone-svg shot-dark" role="img" aria-label={alt || undefined} aria-hidden={alt ? undefined : true} />}
   </div>
 );

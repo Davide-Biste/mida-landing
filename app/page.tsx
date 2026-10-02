@@ -11,17 +11,26 @@ import ColorCarousel, { type ColorTile } from "./ColorCarousel";
 import BlurText from "./BlurText";
 import SpotlightCard from "./SpotlightCard";
 import HeroSpotlight from "./HeroSpotlight";
-import { Flag, Icon, Phone, ShinyText, asset, type IconName } from "./ui";
+import Roadmap from "./Roadmap";
+import { DONATE_URL, Flag, Icon, Phone, ShinyText, asset, type IconName } from "./ui";
 import { dictionaries, defaultLocale, locales, localeNames, type Dictionary, type Locale } from "./i18n/dictionaries";
 
-const capIcons: IconName[] = ["scan", "repeat", "trending", "users", "tag", "globe"];
+const capIcons: IconName[] = ["scan", "card", "face", "tag", "grid", "globe"];
 
 // The app's four real colour families, each with a matching screenshot.
 const paletteVisuals: { src: string; altKey: keyof Dictionary["alts"]; palette: string[] }[] = [
-  { src: "/screens/red.png", altKey: "paletteEnergia", palette: ["#E5614C", "#D63E55", "#C04A8E", "#E68642", "#E5B23C"] },
-  { src: "/screens/purple.png", altKey: "paletteCalma", palette: ["#9583C4", "#7B7AC2", "#D88AA0", "#E8A789", "#B084A8"] },
-  { src: "/screens/home.png", altKey: "paletteNatura", palette: ["#3B9669", "#2C5F3F", "#8AAE3F", "#4FA890", "#7C9982"] },
-  { src: "/screens/blue.png", altKey: "paletteNotte", palette: ["#3B6CC9", "#4658B8", "#2A7A9E", "#27324D", "#4C5A6B"] },
+  { src: "/screens/palette-energy.jpg", altKey: "paletteEnergia", palette: ["#E5614C", "#D63E55", "#C04A8E", "#E68642", "#E5B23C"] },
+  { src: "/screens/palette-calm.jpg", altKey: "paletteCalma", palette: ["#9583C4", "#7B7AC2", "#D88AA0", "#E8A789", "#B084A8"] },
+  { src: "/screens/palette-nature.jpg", altKey: "paletteNatura", palette: ["#3B9669", "#2C5F3F", "#8AAE3F", "#4FA890", "#7C9982"] },
+  { src: "/screens/palette-night.jpg", altKey: "paletteNotte", palette: ["#3B6CC9", "#4658B8", "#2A7A9E", "#27324D", "#4C5A6B"] },
+];
+
+// "And there's more" gallery — one phone per item, same order as t.more.items.
+const moreVisuals: { src: string; altKey: keyof Dictionary["alts"] }[] = [
+  { src: "/screens/split.jpg", altKey: "split" },
+  { src: "/screens/map.jpg", altKey: "map" },
+  { src: "/screens/notifications.jpg", altKey: "notifications" },
+  { src: "/screens/home-dark.jpg", altKey: "dark" },
 ];
 
 const privacyPills: { icon: IconName; size: number; stroke: number }[] = [
@@ -78,12 +87,17 @@ export default function Home() {
   const t = dictionaries[locale];
 
   const steps: Step[] = [
-    { src: "/screens/wallets.png", alt: t.alts.walletsHero, title: t.multi.title.join(" "), body: t.multi.body },
-    { src: "/screens/cards.png", alt: t.alts.cards, title: t.cards.title.join(" "), body: t.cards.body },
-    { src: "/screens/transfer.png", alt: t.alts.transfer, title: t.transfer.title.join(" "), body: t.transfer.body },
-    { src: "/screens/charts.png", alt: t.alts.charts, title: t.kpi.title.join(" "), body: t.kpi.body },
-    { src: "/screens/budgets.png", alt: t.alts.budgetsHero, title: t.budget.title.join(" "), body: t.budget.body },
-    { src: "/screens/new-transactions.png", alt: t.alts.add, title: t.add.title.join(" "), body: t.add.body },
+    { src: "/screens/wallets.jpg", srcDark: "/screens/wallets-dark.jpg", alt: t.alts.walletsHero, eyebrow: t.multi.eyebrow, title: t.multi.title.join(" "), body: t.multi.body },
+    { src: "/screens/card.jpg", alt: t.alts.cards, eyebrow: t.cards.eyebrow, title: t.cards.title.join(" "), body: t.cards.body },
+    { src: "/screens/add.jpg", srcDark: "/screens/add-dark.jpg", alt: t.alts.add, eyebrow: t.add.eyebrow, title: t.add.title.join(" "), body: t.add.body },
+    { src: "/screens/payments.jpg", alt: t.alts.autopay, eyebrow: t.autopay.eyebrow, title: t.autopay.title.join(" "), body: t.autopay.body },
+    { src: "/screens/import.jpg", alt: t.alts.importCsv, eyebrow: t.importCsv.eyebrow, title: t.importCsv.title.join(" "), body: t.importCsv.body },
+    { src: "/screens/analytics.jpg", srcDark: "/screens/analytics-dark.jpg", alt: t.alts.charts, eyebrow: t.kpi.eyebrow, title: t.kpi.title.join(" "), body: t.kpi.body },
+    { src: "/screens/budgets.jpg", srcDark: "/screens/budgets-dark.jpg", alt: t.alts.budgetsHero, eyebrow: t.budget.eyebrow, title: t.budget.title.join(" "), body: t.budget.body },
+    { src: "/screens/widgets.jpg", alt: t.alts.widgets, eyebrow: t.widgets.eyebrow, title: t.widgets.title.join(" "), body: t.widgets.body },
+    { src: "/screens/projection.jpg", alt: t.alts.projection, eyebrow: t.projection.eyebrow, title: t.projection.title.join(" "), body: t.projection.body },
+    { src: "/screens/recurring.jpg", alt: t.alts.recurring, eyebrow: t.recurring.eyebrow, title: t.recurring.title.join(" "), body: t.recurring.body },
+    { src: "/screens/transfers.jpg", alt: t.alts.transfer, eyebrow: t.transfer.eyebrow, title: t.transfer.title.join(" "), body: t.transfer.body },
   ];
 
   const colorTiles: ColorTile[] = t.palette.tiles.map((tile, i) => ({
@@ -109,6 +123,7 @@ export default function Home() {
           <div className="nav-links">
             <a href="#features">{t.nav.features}</a>
             <a href="#privacy">{t.nav.privacy}</a>
+            <a href="#roadmap">{t.nav.roadmap}</a>
             <Link href="/support">{t.nav.support}</Link>
             <div className="lang-menu" ref={langRef}>
               <button
@@ -172,7 +187,7 @@ export default function Home() {
           </div>
           <div className="hero-art hero-anim d4">
             <span className="hero-glow" aria-hidden="true" />
-            <Phone lg src="/screens/home.png" alt={t.alts.home} className="hero-phone" />
+            <Phone lg src="/screens/home.jpg" srcDark="/screens/home-dark.jpg" alt={t.alts.home} className="hero-phone" />
             <div className="hero-chips" aria-hidden="true">
               {t.hero.chips.map((c, i) => (
                 <span className={`hero-chip chip-${i + 1} tone-${c.tone}`} key={i}>
@@ -189,10 +204,32 @@ export default function Home() {
 
       <Stats items={t.stats} />
 
+      {/* More screens — small phone gallery */}
+      <section className="section-pad">
+        <div className="container">
+          <Reveal variant="up" className="sec-head">
+            <div className="eyebrow">{t.more.eyebrow}</div>
+            <h2 className="display h-large"><BlurText text={t.more.title} trigger="view" /></h2>
+          </Reveal>
+          <Reveal variant="up" className="gallery" delay={80}>
+            {t.more.items.map((item, i) => (
+              <figure className="gallery-item stagger" key={moreVisuals[i].src}>
+                <Phone src={moreVisuals[i].src} alt={t.alts[moreVisuals[i].altKey]} />
+                <figcaption>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
       {/* Everything else — capabilities grid */}
       <section className="section-pad">
         <div className="container">
           <div className="sec-head">
+            <div className="eyebrow">{t.features.eyebrow}</div>
             <h2 className="display h-large"><BlurText text={t.features.title} trigger="view" /></h2>
           </div>
           <Reveal variant="up" className="caps" delay={80}>
@@ -245,6 +282,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Roadmap t={t.roadmap} />
+
       {/* Download */}
       <section className="download section-pad band" id="download">
         <div className="container">
@@ -259,6 +298,9 @@ export default function Home() {
               <span className="btn btn-soon" aria-disabled="true">
                 <Icon name="apple" size={17} /> {t.free.ctaStore}
               </span>
+              <a className="btn btn-ghost" href={DONATE_URL} target="_blank" rel="noopener noreferrer">
+                <Icon name="coffee" size={17} /> {t.free.ctaCoffee}
+              </a>
             </div>
           </Reveal>
         </div>
@@ -274,6 +316,7 @@ export default function Home() {
             <Link href="/privacy">{t.footer.links.privacy}</Link>
             <Link href="/terms">{t.footer.links.terms}</Link>
             <Link href="/support">{t.footer.links.support}</Link>
+            <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">{t.footer.links.tip}</a>
             <a href="#">{t.footer.links.store}</a>
           </div>
         </div>
