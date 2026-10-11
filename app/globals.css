@@ -528,6 +528,7 @@ nav.top {
    entry sits on the node's line; wide entries (with chips / notes) span both. */
 .rm-items { display: grid; grid-template-columns: 1fr 1fr; gap: 34px 36px; }
 .rm-items .rm-item.wide { grid-column: 1 / -1; }
+.rm-items .rm-item.row-fill { grid-column: 1 / -1; }
 .rm-items h3 { font-size: 19px; letter-spacing: -0.018em; margin: -2px 0 7px; }
 .rm-items .rm-item.wide h3 { font-size: clamp(22px, 2.3vw, 30px); margin-top: -6px; margin-bottom: 10px; }
 .rm-items p { font-size: 15px; }

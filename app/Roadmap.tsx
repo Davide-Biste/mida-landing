@@ -6,6 +6,16 @@ import Reveal from "./Reveal";
 import { DONATE_URL, Icon } from "./ui";
 import type { Dictionary } from "./i18n/dictionaries";
 
+// In the two-column grid, a non-wide item left alone on its row (followed by a
+// wide item or by nothing) stretches across both columns instead of leaving a gap.
+function fillsRow(items: { wide?: boolean }[], index: number) {
+  if (items[index].wide) return false;
+  let col = 0;
+  for (let k = 0; k < index; k++) col = items[k].wide ? 0 : (col + 1) % 2;
+  const next = items[index + 1];
+  return col === 0 && (!next || !!next.wide);
+}
+
 // Vertical roadmap: a rail that fills with brand green as the reader scrolls
 // through it, lighting each milestone as the fill reaches its node. The fill
 // is a single CSS var (--rm-fill) written on scroll; reduced motion shows the
@@ -66,8 +76,8 @@ export default function Roadmap({ t }: { t: Dictionary["roadmap"] }) {
                 {phase.state === "done" && <Icon name="check" size={13} stroke={3} />}
               </span>
               <Reveal variant="up" className={"rm-body" + (phase.items.length > 1 ? " rm-items" : "")}>
-                {phase.items.map((item) => (
-                  <div className={"rm-item stagger" + (item.wide ? " wide" : "")} key={item.title}>
+                {phase.items.map((item, j) => (
+                  <div className={"rm-item stagger" + (item.wide ? " wide" : "") + (fillsRow(phase.items, j) ? " row-fill" : "")} key={item.title}>
                     <h3>{item.title}</h3>
                     <p>{item.desc}</p>
                     {item.chips && (
