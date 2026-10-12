@@ -12,6 +12,8 @@ import BlurText from "./BlurText";
 import SpotlightCard from "./SpotlightCard";
 import HeroSpotlight from "./HeroSpotlight";
 import Roadmap from "./Roadmap";
+import Reel from "./Reel";
+import Journey, { type Stop } from "./Journey";
 import { DONATE_URL, Flag, Icon, Phone, ShinyText, asset, type IconName } from "./ui";
 import { dictionaries, defaultLocale, locales, localeNames, type Dictionary, type Locale } from "./i18n/dictionaries";
 
@@ -100,6 +102,18 @@ export default function Home() {
     { src: "/screens/transfers.jpg", alt: t.alts.transfer, eyebrow: t.transfer.eyebrow, title: t.transfer.title.join(" "), body: t.transfer.body },
   ];
 
+  // The page read as a journey: one stop per section, in scroll order.
+  const stops: Stop[] = [
+    { id: "top", label: t.journey.start },
+    { id: "film", label: t.film.eyebrow },
+    { id: "features", label: t.nav.features, steps: steps.length },
+    { id: "details", label: t.journey.details },
+    { id: "looks", label: t.palette.eyebrow },
+    { id: "privacy", label: t.nav.privacy },
+    { id: "roadmap", label: t.nav.roadmap },
+    { id: "download", label: t.journey.arrival },
+  ];
+
   const colorTiles: ColorTile[] = t.palette.tiles.map((tile, i) => ({
     name: tile.name,
     desc: tile.desc,
@@ -164,6 +178,8 @@ export default function Home() {
         </div>
       </nav>
 
+      <Journey stops={stops} t={t.journey} />
+
       <header className="hero section-pad" id="top">
         <span className="hero-aurora" aria-hidden="true" />
         <HeroSpotlight />
@@ -183,7 +199,7 @@ export default function Home() {
             <span className="btn btn-soon" aria-disabled="true">
               <Icon name="apple" size={17} /> {t.hero.ctaPrimary}
             </span>
-            <a href="#features" className="text-link">{t.hero.ctaSecondary}</a>
+            <a href="#film" className="text-link">{t.hero.ctaSecondary}</a>
           </div>
           <div className="hero-art hero-anim d4">
             <span className="hero-glow" aria-hidden="true" />
@@ -200,12 +216,25 @@ export default function Home() {
         </div>
       </header>
 
+      {/* The film — the whole app in one take, rendered live */}
+      <section className="film section-pad" id="film">
+        <div className="container">
+          <Reveal variant="up" className="sec-head">
+            <div className="eyebrow">{t.film.eyebrow}</div>
+            <h2 className="display h-large"><BlurText text={t.film.title} trigger="view" /></h2>
+          </Reveal>
+          <Reveal variant="scale" delay={80}>
+            <Reel locale={locale} t={t.film} />
+          </Reveal>
+        </div>
+      </section>
+
       <Showcase steps={steps} heading={t.overview.title.join(" ")} />
 
       <Stats items={t.stats} />
 
       {/* More screens — small phone gallery */}
-      <section className="section-pad">
+      <section className="section-pad" id="details">
         <div className="container">
           <Reveal variant="up" className="sec-head">
             <div className="eyebrow">{t.more.eyebrow}</div>
@@ -245,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* Colourways — auto marquee */}
-      <section className="section-pad band">
+      <section className="section-pad band" id="looks">
         <div className="container">
           <Reveal variant="up" className="sec-head">
             <div className="eyebrow">{t.palette.eyebrow}</div>

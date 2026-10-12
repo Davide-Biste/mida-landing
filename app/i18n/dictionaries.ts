@@ -58,6 +58,21 @@ const it = {
   overview: {
     title: ["I tuoi risparmi.", "Sotto controllo."],
   },
+  film: {
+    eyebrow: "Il film",
+    title: "Tutta l'app. Diciotto secondi.",
+    play: "Riproduci",
+    pause: "Pausa",
+    restart: "Ricomincia",
+    fullscreen: "Schermo intero",
+  },
+  journey: {
+    label: "Il viaggio",
+    start: "Partenza",
+    details: "Dettagli",
+    arrival: "Arrivo",
+    next: "Prossima tappa",
+  },
   stats: [
     { value: 100, suffix: "%", label: "Sul tuo dispositivo" },
     { value: 0, suffix: "", label: "Account richiesti" },
@@ -327,6 +342,21 @@ const en: typeof it = {
   overview: {
     title: ["Your money.", "Under control."],
   },
+  film: {
+    eyebrow: "The film",
+    title: "The whole app. Eighteen seconds.",
+    play: "Play",
+    pause: "Pause",
+    restart: "Restart",
+    fullscreen: "Full screen",
+  },
+  journey: {
+    label: "The journey",
+    start: "Start",
+    details: "Details",
+    arrival: "Arrival",
+    next: "Next stop",
+  },
   stats: [
     { value: 100, suffix: "%", label: "On your device" },
     { value: 0, suffix: "", label: "Accounts required" },
@@ -595,6 +625,21 @@ const es: typeof it = {
   },
   overview: {
     title: ["Tu dinero.", "Bajo control."],
+  },
+  film: {
+    eyebrow: "La película",
+    title: "Toda la app. Dieciocho segundos.",
+    play: "Reproducir",
+    pause: "Pausa",
+    restart: "Reiniciar",
+    fullscreen: "Pantalla completa",
+  },
+  journey: {
+    label: "El viaje",
+    start: "Salida",
+    details: "Detalles",
+    arrival: "Llegada",
+    next: "Próxima parada",
   },
   stats: [
     { value: 100, suffix: "%", label: "En tu dispositivo" },
